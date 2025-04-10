@@ -36,7 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar>{
               gradient: LinearGradient(
                 begin: Alignment.bottomLeft,
                 end: Alignment.bottomRight,
-                colors: [Color.fromRGBO(75, 255, 41, 1), Color.fromRGBO(251, 255, 125, 1)],
+                colors: [Color.fromRGBO(69, 123, 196, 1.0), Color.fromRGBO(109, 220, 225, 1.0)],
               ),
           ),
           child: CurvedNavigationBar(

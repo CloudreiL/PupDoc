@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pupdoc/logregpages/loginpage.dart';
 import 'classes/bottombar.dart';
+
 
 
 void main() {
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
         ),
-        home: LoginPage()
+        home: BottomNavBar()
     );
   }
 }
