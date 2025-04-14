@@ -1,9 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:animate_gradient/animate_gradient.dart';
+import 'package:pupdoc/classes/animatedbackground.dart';
 import 'package:pupdoc/classes/style.dart';
+import 'package:pupdoc/logregpages/loginpage.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({super.key});
+   RegistrationScreen({super.key});
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
@@ -11,23 +13,33 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   bool isHidden = true;
+  late TapGestureRecognizer _tapRecognizer = TapGestureRecognizer();
+
+  @override
+  void initState() {
+    super.initState();
+    _tapRecognizer = TapGestureRecognizer()
+      ..onTap = () {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => LoginPage())
+        );
+      };
+  }
+
+  @override
+  void dispose() {
+    _tapRecognizer.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-      AnimateGradient(
-      primaryColors: const [
-      Color.fromRGBO(109, 220, 225, 1.0),
-        Color.fromRGBO(69, 123, 196, 1.0),
-      ],
-      secondaryColors: [
-        Color.fromRGBO(69, 123, 196, 1.0),
-        Color.fromRGBO(109, 220, 225, 1.0),
-      ],child:
-
-          Align(
+        AnimatedBackground(
+        child: Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               width: double.infinity,
@@ -43,9 +55,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                     Text(
                       'Регистрация',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                       style: TextStyles.SansReg.copyWith(color: Colors.black, fontSize: 30),
                     ),
                     const SizedBox(height: 24),
                     TextField(
@@ -103,7 +115,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                         ),
                         onPressed: () {},
-                        child: const Text('Зарегистрироваться'),
+                        child: const Text('Зарегистрироваться',),
                       ),
                     ),
                     const SizedBox(height: 24),
@@ -111,11 +123,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: RichText(
                         text: TextSpan(
                           text: 'Уже есть аккаунт? ',
-                          style: const TextStyle(color: Colors.black),
+                          style: TextStyles.SansReg.copyWith(color: Colors.black, fontSize: 15),
                           children: [
                             TextSpan(
                               text: 'Войдите!',
                               style: const TextStyle(color: Color.fromRGBO(69, 123, 196, 1.0)),
+                              recognizer: _tapRecognizer
                             ),
                           ],
                         ),

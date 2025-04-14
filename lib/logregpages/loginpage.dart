@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_gradient/animate_gradient.dart';
 import 'package:pupdoc/classes/style.dart';
-
+import 'package:pupdoc/logregpages/registerpage.dart';
+import '../classes/animatedbackground.dart';
 import '../classes/bottombar.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,22 +15,33 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isHidden = true;
+  late TapGestureRecognizer _tapRecognizer = TapGestureRecognizer();
+
+  @override
+  void initState() {
+    super.initState();
+    _tapRecognizer = TapGestureRecognizer()
+      ..onTap = () {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => RegistrationScreen())
+        );
+      };
+  }
+
+  @override
+  void dispose() {
+    _tapRecognizer.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          AnimateGradient(
-            primaryColors: const [
-              Color.fromRGBO(109, 220, 225, 1.0),
-              Color.fromRGBO(69, 123, 196, 1.0),
-            ],
-            secondaryColors: [
-              Color.fromRGBO(69, 123, 196, 1.0),
-              Color.fromRGBO(109, 220, 225, 1.0),
-            ],child:
-
+          AnimatedBackground(
+            child:
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -45,9 +58,9 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                     Text(
                       'Вход',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: TextStyles.SansReg.copyWith(color: Colors.black, fontSize: 30),
                     ),
                     const SizedBox(height: 24),
                     TextField(
@@ -63,23 +76,6 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'Пароль',
-                        suffixIcon: IconButton(onPressed: (){
-                          setState(() {
-                            isHidden = !isHidden;
-                          });
-                        }, icon: Icon(
-                          isHidden? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.black,
-                        )),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Повторите пароль',
                         suffixIcon: IconButton(onPressed: (){
                           setState(() {
                             isHidden = !isHidden;
@@ -110,19 +106,20 @@ class _LoginPageState extends State<LoginPage> {
                               MaterialPageRoute(builder: (context) => BottomNavBar())
                           );
                         },
-                        child: const Text('Войти'),
+                        child: Text('Войти'),
                       ),
                     ),
-                    const SizedBox(height: 24),
+                     SizedBox(height: 24),
                     Center(
                       child: RichText(
                         text: TextSpan(
                           text: 'Нет аккаунта? ',
-                          style: const TextStyle(color: Colors.black),
+                          style: TextStyles.SansReg.copyWith(color: Colors.black, fontSize: 15),
                           children: [
                             TextSpan(
-                              text: 'Зарегистрируйте!',
-                              style: const TextStyle(color: Color.fromRGBO(69, 123, 196, 1.0)),
+                                text: 'Зарегистрируйте!',
+                                style: const TextStyle(color: Color.fromRGBO(69, 123, 196, 1.0)),
+                                recognizer: _tapRecognizer
                             ),
                           ],
                         ),
