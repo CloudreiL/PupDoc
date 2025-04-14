@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pupdoc/pages/logregpages/loginpage.dart';
 import 'classes/bottombar.dart';
-import 'logregpages/loginpage.dart';
-
-
 
 void main() {
   runApp(const MyApp());

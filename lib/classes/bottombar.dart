@@ -1,9 +1,11 @@
-import 'package:pupdoc/pages/accountpage.dart';
-import 'package:pupdoc/pages/forum.dart';
 
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:pupdoc/pages/petpage.dart';
+
+import '../pages/mainpages/accountpage.dart';
+import '../pages/mainpages/forum.dart';
+import '../pages/mainpages/petpage.dart';
+
 
 class BottomNavBar extends StatefulWidget{
   const BottomNavBar({super.key});
