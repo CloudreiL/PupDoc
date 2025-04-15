@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pupdoc/pages/logregpages/loginpage.dart';
+import 'package:pupdoc/pages/logregpages/questionnairepage.dart';
 import 'classes/bottombar.dart';
 
 void main() {

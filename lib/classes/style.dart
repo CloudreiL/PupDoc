@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class TextStyles{
   static TextStyle SansReg = TextStyle(
-    fontSize: 20, fontFamily: 'Sansation', color: Colors.white
+    fontSize: 20, fontFamily: 'Sansation', color: Colors.black
   );
 }
 
@@ -13,17 +13,17 @@ class ContainerDecor{
   );
 }
 
-class TextFields{
-  static InputDecoration FieldDec = InputDecoration(
-    enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black),
-        borderRadius: BorderRadius.circular(20)),
-    focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.black),
-        borderRadius: BorderRadius.circular(20)),
-    labelStyle: TextStyles.SansReg,
-    filled: true,
-    fillColor: Colors.transparent
-  );
-}
+// class TextFields{
+//   static InputDecoration FieldDec = InputDecoration(
+//     enabledBorder: OutlineInputBorder(
+//         borderSide: BorderSide(color: Colors.black),
+//         borderRadius: BorderRadius.circular(20)),
+//     focusedBorder: OutlineInputBorder(
+//         borderSide: BorderSide(color: Colors.black),
+//         borderRadius: BorderRadius.circular(20)),
+//     labelStyle: TextStyles.SansReg,
+//     filled: true,
+//     fillColor: Colors.transparent
+//   );
+// }
 

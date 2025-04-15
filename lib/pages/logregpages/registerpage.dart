@@ -6,7 +6,7 @@ import 'package:pupdoc/classes/style.dart';
 import 'loginpage.dart';
 
 class RegistrationPage extends StatefulWidget {
-  RegistrationPage({super.key});
+  const RegistrationPage({super.key});
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();

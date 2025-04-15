@@ -1,9 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:animate_gradient/animate_gradient.dart';
 import 'package:pupdoc/classes/style.dart';
 import 'package:pupdoc/pages/logregpages/registerpage.dart';
-
 import '../../classes/animatedbackground.dart';
 import '../../classes/bottombar.dart';
 
