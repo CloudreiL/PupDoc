@@ -45,9 +45,15 @@ class _QuizzPageState extends State<QuizzPage>{
             nextStep();
           }),
       QuestionTextField(
-          question: "Как зовут вашего питомца?",
+          question: "Какой у вас питомец?",
           onNext: (answer){
             answers[2] = answer;
+            nextStep();
+          }),
+      QuestionTextField(
+          question: "Как зовут вашего питомца?",
+          onNext: (answer){
+            answers[3] = answer;
             nextStep();
           }),
     ]);

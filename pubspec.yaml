@@ -61,7 +61,14 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - "lib/assets/png/pupdoclogologin.png"
+    - "lib/assets/png/pupdoclogoregister.png"
+
   fonts:
-    - family: Sansation
+    - family: SansationRegular
       fonts:
         - asset: lib/assets/font/sansation/Sansation-Regular.ttf
+    - family: SansationBold
+      fonts:
+        - asset: lib/assets/font/sansation/Sansation-Bold.ttf
