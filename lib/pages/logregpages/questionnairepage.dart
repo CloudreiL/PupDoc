@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:linear_progress_bar/linear_progress_bar.dart';
 
+import '../../classes/bottombar.dart';
 import '../../classes/style.dart';
 
 class QuizzPage extends StatefulWidget {
@@ -14,17 +15,9 @@ class _QuizzPageState extends State<QuizzPage>{
 
   int questionSteps = 1;
   int currentSteps = 0;
-  final int totalSteps = 3;
+  final int totalSteps = 4;
   final List<Widget> questions = [];
   final Map<int, dynamic> answers = {};
-
-  // void prevStep(){
-  //   if(currentSteps > 1){
-  //     setState(() {
-  //       currentSteps--;
-  //     });
-  //   }
-  // }
 
   @override
   void initState(){
@@ -44,8 +37,9 @@ class _QuizzPageState extends State<QuizzPage>{
             answers[1] = answer;
             nextStep();
           }),
-      QuestionTextField(
+      QuestionOptions(
           question: "Какой у вас питомец?",
+          options: ["Кошка", "Собака", "Другое"],
           onNext: (answer){
             answers[2] = answer;
             nextStep();
@@ -54,19 +48,34 @@ class _QuizzPageState extends State<QuizzPage>{
           question: "Как зовут вашего питомца?",
           onNext: (answer){
             answers[3] = answer;
-            nextStep();
+            toApp();
           }),
     ]);
   }
 
   void nextStep(){
-    if(currentSteps < totalSteps){
+    if(currentSteps < totalSteps - 1){
       setState(() {
         currentSteps++;
         questionSteps++;
       });
     }
   }
+
+  void toApp(){
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => BottomNavBar())
+    );
+  }
+
+  // void prevStep(){
+  //   if(currentSteps > 1){
+  //     setState(() {
+  //       currentSteps--;
+  //     });
+  //   }
+  // }
 
 
 
@@ -130,11 +139,7 @@ class _QuestionTextFieldState extends State<QuestionTextField> {
         const SizedBox(height: 18),
         TextField(
           controller: textController,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
+          decoration: TextFields.FieldDec
         ),
         const SizedBox(height: 24,),
         Align(
@@ -175,9 +180,9 @@ class QuestionOptions extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(question, style: const TextStyle(fontSize: 18)),
+        Text(question, style: TextStyles.SansReg.copyWith(fontSize: 18), textAlign: TextAlign.center,),
         const SizedBox(height: 12),
         ...options.map((opt) => Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
@@ -185,7 +190,7 @@ class QuestionOptions extends StatelessWidget{
             onPressed: () {
               onNext(opt);
             },
-            child: Text(opt),
+            child: Text(opt, style: TextStyles.SansReg.copyWith(fontSize: 16)),
           ),
         )),
       ],

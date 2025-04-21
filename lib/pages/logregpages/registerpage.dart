@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/animatedbackground.dart';
 import 'package:pupdoc/classes/style.dart';
+import 'package:pupdoc/pages/logregpages/questionnairepage.dart';
 
 import 'loginpage.dart';
 
@@ -115,7 +116,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => QuizzPage())
+                            );
+                          },
                           child: const Text('Зарегистрироваться',),
                         ),
                       ),
