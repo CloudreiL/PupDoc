@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "294641802180",
+    "project_id": "pupdoc",
+    "storage_bucket": "pupdoc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294641802180:android:e50c3450ab760313ba2291",
+        "android_client_info": {
+          "package_name": "com.example.pupdoc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAemfyrzqnhKgNPNQv3Q2SVC3wrJaIP5Rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

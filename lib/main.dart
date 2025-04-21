@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:pupdoc/pages/logregpages/loginpage.dart';
 import 'package:pupdoc/pages/logregpages/questionnairepage.dart';
-import 'package:pupdoc/pages/logregpages/registerpage.dart';
-import 'classes/bottombar.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(MyApp());
+  });
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -18,7 +26,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
         ),
-        home: QuizzPage()
+        home: LoginPage()
     );
   }
 }
