@@ -12,7 +12,23 @@ class TextStyles{
 class ContainerDecor{
   static BoxDecoration WhiteCont = BoxDecoration(
     color: Colors.white,
-      borderRadius: BorderRadius.circular(20)
+      borderRadius: BorderRadius.circular(20),
+    boxShadow: [
+      BoxShadow(
+          color: Colors.black.withValues(alpha: 0.15),
+          offset: Offset(0, 3),
+          spreadRadius: 1,
+          blurRadius: 10
+      )
+    ]
+  );
+  static BoxDecoration OutlinedCont = BoxDecoration(
+    color: Colors.transparent,
+    borderRadius: BorderRadius.circular(20),
+    border: Border.all(
+      color: Color.fromRGBO(69, 123, 196, 1.0),
+      width: 3
+    )
   );
 }
 

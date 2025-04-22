@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
+import 'package:pupdoc/pages/logregpages/email.dart';
 import 'package:pupdoc/pages/logregpages/loginpage.dart';
-import 'package:pupdoc/pages/logregpages/questionnairepage.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
         ),
-        home: LoginPage()
+        home: EmailVerification()
     );
   }
 }
