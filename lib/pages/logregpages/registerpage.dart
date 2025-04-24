@@ -1,9 +1,13 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/animatedbackground.dart';
 import 'package:pupdoc/classes/style.dart';
 import 'package:pupdoc/pages/logregpages/questionnairepage.dart';
 
+import '../../services/firebase_stream.dart';
 import 'loginpage.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -14,10 +18,15 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  bool isHidden = true;
+  bool isHidden0 = true;
+  bool isHidden1 = true;
+
   late TapGestureRecognizer _tapRecognizer = TapGestureRecognizer();
 
-  @override
+  TextEditingController emailController = TextEditingController();
+  TextEditingController fPassController = TextEditingController();
+  TextEditingController sPassController = TextEditingController();
+
   void initState() {
     super.initState();
     _tapRecognizer = TapGestureRecognizer()
@@ -32,15 +41,104 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   void dispose() {
     _tapRecognizer.dispose();
+    emailController.dispose();
+    fPassController.dispose();
+    sPassController.dispose();
     super.dispose();
   }
 
+  Future<void> signUp() async {
+    if (emailController.text.trim().isEmpty ||
+        fPassController.text.trim().isEmpty ||
+        sPassController.text.trim().isEmpty) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Вы заполнили не все поля'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    if (!EmailValidator.validate(emailController.text.trim())) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Введите корректную почту'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    if (fPassController.text != sPassController.text) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Пароли не совпадают'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: fPassController.text.trim());
+
+      User? user = userCredential.user;
+
+      if (user != null) {
+        DatabaseReference ref =
+        FirebaseDatabase.instance.ref("users/${user.uid}");
+        await ref.set({
+          "email": user.email,
+          "uid": user.uid,
+        });
+      }
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+      if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Почта уже используется'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      } else if (e.code == 'weak-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Пароль должен быть минимум 6 символов'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }else{
+        print(e);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Ошибка $e'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+      return;
+    }
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const FirebaseStream()),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnimatedBackground(
-        child:
-        Stack(
+    return AnimatedBackground(
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+        body: Stack(
         children: [
           Center(
             child: Column(
@@ -74,33 +172,36 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       const SizedBox(height: 24),
                       TextField(
+                        controller: emailController,
                           decoration: TextFields.FieldDec.copyWith(labelText: 'Ваш E-mail',)
                       ),
                       const SizedBox(height: 16),
                       TextField(
-                        obscureText: true,
+                        controller: fPassController,
+                        obscureText: isHidden0,
                         decoration: TextFields.FieldDec.copyWith(
                           labelText: 'Пароль',
                           suffixIcon: IconButton(onPressed: (){
                             setState(() {
-                              isHidden = !isHidden;
+                              isHidden0 = !isHidden0;
                             });
                           }, icon: Icon(
-                            isHidden? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.black,
+                            isHidden0? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.black,
                           )),
                         ),
                       ),
                       const SizedBox(height: 16),
                       TextField(
-                        obscureText: true,
+                        controller: sPassController,
+                        obscureText: isHidden1,
                         decoration: TextFields.FieldDec.copyWith(
                           labelText: 'Повторите пароль',
                           suffixIcon: IconButton(onPressed: (){
                             setState(() {
-                              isHidden = !isHidden;
+                              isHidden1 = !isHidden1;
                             });
                           }, icon: Icon(
-                            isHidden? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.black,
+                            isHidden1? Icons.remove_red_eye : Icons.remove_red_eye_outlined, color: Colors.black,
                           )),
                         ),
                       ),
@@ -116,12 +217,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => QuizzPage())
-                            );
-                          },
+                          onPressed: signUp,
                           child: const Text('Зарегистрироваться',),
                         ),
                       ),

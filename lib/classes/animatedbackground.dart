@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:animate_gradient/animate_gradient.dart';
 
-class AnimatedBackground extends StatefulWidget {
+class AnimatedBackground extends StatelessWidget {
   final Widget child;
 
   const AnimatedBackground({super.key, required this.child});
 
-  @override
-  State<AnimatedBackground> createState() => _AnimatedBackgroundState();
-}
-
-class _AnimatedBackgroundState extends State<AnimatedBackground>
-    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return AnimateGradient(
@@ -23,7 +17,7 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
         Color.fromRGBO(69, 123, 196, 1.0),
         Color.fromRGBO(109, 220, 225, 1.0),
       ],
-      child: widget.child,
+      child: child,
     );
   }
 }

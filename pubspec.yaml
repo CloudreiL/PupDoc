@@ -22,6 +22,7 @@ dependencies:
   firebase_auth: ^5.5.2
   firebase_database: ^11.3.5
   flutter_dotenv: ^5.2.1
+  email_validator: ^3.0.0
 
 dev_dependencies:
   flutter_test:

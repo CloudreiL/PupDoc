@@ -14,6 +14,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool isHidden = true;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passController = TextEditingController();
   late TapGestureRecognizer _tapRecognizer = TapGestureRecognizer();
 
   @override
@@ -22,24 +24,40 @@ class _LoginPageState extends State<LoginPage> {
     _tapRecognizer = TapGestureRecognizer()
       ..onTap = () {
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => RegistrationPage())
+          context,
+          MaterialPageRoute(builder: (_) => const RegistrationPage()),
         );
       };
   }
 
   @override
   void dispose() {
+    emailController.dispose();
+    passController.dispose();
     _tapRecognizer.dispose();
     super.dispose();
   }
 
+  Future<void> logIn() async{
+
+    if(emailController.text.trim().isEmpty || passController.text.trim().isEmpty){
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Вы заполнили не все поля'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnimatedBackground(
-        child:
-          Stack(
+    return AnimatedBackground(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
             children: [
               Center(
                 //Welcome Column
@@ -74,10 +92,12 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 24),
                       TextField(
+                        controller: emailController,
                         decoration: TextFields.FieldDec.copyWith(labelText: 'Ваш E-mail',)
                       ),
                       const SizedBox(height: 16),
                       TextField(
+                        controller: passController,
                         obscureText: true,
                         decoration: TextFields.FieldDec.copyWith(
                           labelText: 'Пароль',
