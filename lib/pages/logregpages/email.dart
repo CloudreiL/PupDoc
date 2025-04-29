@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pupdoc/classes/animatedbackground.dart';
 import 'package:pupdoc/classes/bottombar.dart';
+import 'package:pupdoc/pages/logregpages/questionnairepage.dart';
 import 'package:pupdoc/pages/logregpages/registerpage.dart';
 
 import '../../classes/style.dart';
@@ -84,7 +85,7 @@ class _EmailVerificationState extends State<EmailVerification>{
 
   @override
   Widget build(BuildContext context) => isVerified
-  ?const BottomNavBar()
+  ?const QuizzPage()
   :Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(

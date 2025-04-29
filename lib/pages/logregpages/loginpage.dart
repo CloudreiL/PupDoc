@@ -1,9 +1,12 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/style.dart';
 import 'package:pupdoc/pages/logregpages/registerpage.dart';
 import '../../classes/animatedbackground.dart';
 import '../../classes/bottombar.dart';
+import '../../services/firebase_stream.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -39,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> logIn() async{
-
     if(emailController.text.trim().isEmpty || passController.text.trim().isEmpty){
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -50,6 +52,57 @@ class _LoginPageState extends State<LoginPage> {
       );
       return;
     }
+    if (!EmailValidator.validate(emailController.text.trim())) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Введите корректную почту'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passController.text.trim()
+      );
+    }on FirebaseAuthException catch(e){
+      print(e);
+
+      if(e.code == "invalid-credential" || e.code == "wrong-password"){
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Неверный email или почта. Повторите попытку'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+        return;
+      }else if(e.code == "network-request-failed"){
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Не удается подключиться к серверу. Повторите попытку'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+        return;
+      }else{
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Ошибка $e'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+        return;
+      }
+    }
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => FirebaseStream())
+    );
   }
 
   @override
@@ -92,13 +145,14 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 24),
                       TextField(
+                        keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                         decoration: TextFields.FieldDec.copyWith(labelText: 'Ваш E-mail',)
                       ),
                       const SizedBox(height: 16),
                       TextField(
                         controller: passController,
-                        obscureText: true,
+                        obscureText: isHidden,
                         decoration: TextFields.FieldDec.copyWith(
                           labelText: 'Пароль',
                           suffixIcon: IconButton(onPressed: (){
@@ -122,12 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => BottomNavBar())
-                            );
-                          },
+                          onPressed: logIn,
                           child: Text('Войти'),
                         ),
                       ),

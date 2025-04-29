@@ -172,6 +172,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       const SizedBox(height: 24),
                       TextField(
+                        keyboardType: TextInputType.emailAddress,
                         controller: emailController,
                           decoration: TextFields.FieldDec.copyWith(labelText: 'Ваш E-mail',)
                       ),

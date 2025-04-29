@@ -6,7 +6,7 @@ import '../pages/mainpages/accountpage.dart';
 import '../pages/mainpages/forum.dart';
 import '../pages/mainpages/petpage.dart';
 
-
+//TODO: replace bottomnavbar
 class BottomNavBar extends StatefulWidget{
   const BottomNavBar({super.key});
 
