@@ -14,7 +14,6 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
-  curved_navigation_bar: ^1.0.6
   animate_gradient: ^0.0.3
   material_design_icons_flutter: ^7.0.7296
   linear_progress_bar: ^1.1.3
