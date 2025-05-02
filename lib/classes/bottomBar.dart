@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pupdoc/classes/animatedRiveBar.dart';
+import 'package:pupdoc/classes/riveComponents/riveAnimatedBar.dart';
 import 'package:pupdoc/classes/riveComponents//riveModelBar.dart';
 import 'package:pupdoc/classes/riveComponents//riveUtils.dart';
 import 'package:pupdoc/pages/mainpages/settingspage.dart';

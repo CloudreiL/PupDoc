@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/style.dart';
 import 'package:pupdoc/pages/logregpages/registerpage.dart';
-import '../../classes/animatedbackground.dart';
+import '../../classes/animatedBackground.dart';
 import '../../services/firebase_stream.dart';
 
 class LoginPage extends StatefulWidget {

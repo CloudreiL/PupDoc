@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:linear_progress_bar/linear_progress_bar.dart';
+import 'package:pupdoc/classes/animatedLinearBar.dart';
+import 'package:pupdoc/classes/questionnaire.dart';
 
-import '../../classes/bottombar.dart';
+import '../../classes/bottomBar.dart';
 import '../../classes/style.dart';
 
 class QuizzPage extends StatefulWidget {
@@ -89,111 +90,13 @@ class _QuizzPageState extends State<QuizzPage>{
       ),
       body: Column(
         children: [
-          LinearProgressBar(
-            maxSteps: totalSteps,
-            progressType: LinearProgressBar.progressTypeLinear,
-            currentStep: questionSteps,
-            progressColor: Color.fromRGBO(69, 123, 196, 1.0),
-            backgroundColor: Color.fromRGBO(69, 123, 196, 0.10588235294117647),
-            minHeight: 5,
-          ),
+          AnimatedProgressBar(currentStep: questionSteps, totalSteps: totalSteps),
           SizedBox(height: 20),
           Text('Отлично! Перед тем как перейти к приложению, давайте ответим на несколько вопросов', style: TextStyles.SansReg, textAlign: TextAlign.center),
           Padding(padding: EdgeInsets.all(20),
           child: questions[currentSteps])
         ],
       )
-    );
-  }
-}
-
-
-
-//
-//Quiestion classes
-//
-
-class QuestionTextField extends StatefulWidget{
-  final String question;
-  final Function(String) onNext;
-
-  const QuestionTextField({
-    super.key,
-    required this.question,
-    required this.onNext
-  });
-
-  @override
-  State<QuestionTextField> createState() => _QuestionTextFieldState();
-}
-
-class _QuestionTextFieldState extends State<QuestionTextField> {
-  final TextEditingController textController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(widget.question, style: TextStyles.SansReg),
-        const SizedBox(height: 18),
-        TextField(
-          controller: textController,
-          decoration: TextFields.FieldDec
-        ),
-        const SizedBox(height: 24,),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              textStyle: TextStyles.SansReg.copyWith(fontSize: 15),
-              backgroundColor: Color.fromRGBO(69, 123, 196, 1.0),
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-              onPressed: (){
-                widget.onNext(textController.text);
-              },
-              child: Text('Далее')
-          )
-        ),
-      ],
-    );
-  }
-}
-
-class QuestionOptions extends StatelessWidget{
-  final String question;
-  final List<String> options;
-  final Function(String) onNext;
-
-  const QuestionOptions({
-    super.key,
-    required this.question,
-    required this.options,
-    required this.onNext,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(question, style: TextStyles.SansReg.copyWith(fontSize: 18), textAlign: TextAlign.center,),
-        const SizedBox(height: 12),
-        ...options.map((opt) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: OutlinedButton(
-            onPressed: () {
-              onNext(opt);
-            },
-            child: Text(opt, style: TextStyles.SansReg.copyWith(fontSize: 16)),
-          ),
-        )),
-      ],
     );
   }
 }

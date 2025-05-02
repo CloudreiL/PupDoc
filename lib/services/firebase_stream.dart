@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../classes/bottombar.dart';
+import '../classes/bottomBar.dart';
 import '../pages/logregpages/email.dart';
 import '../pages/logregpages/loginpage.dart';
 
