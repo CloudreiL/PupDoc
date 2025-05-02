@@ -107,7 +107,7 @@ class _QuizzPageState extends State<QuizzPage>{
               );
               return;
             }else{
-              toApp();
+              _saveAnswersToFirebase();
             }
           }),
     ]);
@@ -129,6 +129,40 @@ class _QuizzPageState extends State<QuizzPage>{
     );
   }
 
+  Future<void> _saveAnswersToFirebase() async {
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Пользователь не найден'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
+    try {
+      await ref.child("users/${user!.uid}/info").set({
+        "nickname": answers[4],// никнейм бро
+        "name": answers[0], // имя
+        "role": answers[1], //  ветеринар/владелец
+        "created_at": ServerValue.timestamp,
+      });
+
+      await ref.child("users/${user!.uid}/info/pets").set({
+        "pet_type": answers[2], // тип питомца
+        "pet_name": answers[3], // имя питомца
+      });
+      toApp();
+    }catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Ошибка $e'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
   // void prevStep(){
   //   if(currentSteps > 1){
   //     setState(() {
@@ -136,7 +170,6 @@ class _QuizzPageState extends State<QuizzPage>{
   //     });
   //   }
   // }
-
 
   @override
   Widget build(BuildContext context) {

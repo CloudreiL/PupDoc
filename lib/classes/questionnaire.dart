@@ -30,7 +30,7 @@ class _QuestionTextFieldState extends State<QuestionTextField> {
             controller: textController,
             decoration: TextFields.FieldDec
         ),
-        const SizedBox(height: 24,),
+        const SizedBox(height: 24),
         Align(
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
