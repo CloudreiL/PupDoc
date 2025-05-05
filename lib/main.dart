@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
-import 'package:pupdoc/pages/logregpages/email.dart';
-import 'package:pupdoc/pages/logregpages/loginpage.dart';
-import 'package:pupdoc/pages/logregpages/questionnairepage.dart';
-import 'package:pupdoc/pages/logregpages/registerpage.dart';
 import 'package:pupdoc/services/firebase_stream.dart';
 
 void main() async{

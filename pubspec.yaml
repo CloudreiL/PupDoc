@@ -37,6 +37,8 @@ flutter:
     - "lib/assets/png/pupdoclogologin.png"
     - "lib/assets/png/pupdoclogoregister.png"
     - "lib/assets/riveAssets/"
+    - "lib/assets/png/background/stateBackground/"
+    - "lib/assets/png/icons/"
 
   fonts:
     - family: SansationRegular

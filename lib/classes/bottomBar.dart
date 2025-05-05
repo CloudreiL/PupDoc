@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/riveComponents/riveAnimatedBar.dart';
-import 'package:pupdoc/classes/riveComponents//riveModelBar.dart';
-import 'package:pupdoc/classes/riveComponents//riveUtils.dart';
-import 'package:pupdoc/pages/mainpages/settingspage.dart';
+import 'package:pupdoc/classes/riveComponents/riveModelBar.dart';
+import 'package:pupdoc/classes/riveComponents/riveUtils.dart';
+import 'package:pupdoc/pages/navBarDirectory/forum.dart';
+import 'package:pupdoc/pages/navBarDirectory/mainDirectory/mainpage.dart';
+import 'package:pupdoc/pages/navBarDirectory/searchpage.dart';
+import 'package:pupdoc/pages/navBarDirectory/settingspage.dart';
 import 'package:rive/rive.dart';
-import '../pages/mainpages/accountpage.dart';
-import '../pages/mainpages/forum.dart';
-import '../pages/mainpages/searchpage.dart';
 
 
 //TODO: replace bottomnavbar
@@ -24,7 +24,7 @@ class _BottomNavBarState extends State<BottomNavBar>{
   Widget _getPage(int index) {
     switch (index) {
       case 0:
-        return AccPage();
+        return MainPage();
       case 1:
         return SearchPage();
       case 2:
@@ -32,7 +32,7 @@ class _BottomNavBarState extends State<BottomNavBar>{
       case 3:
         return SettingsPage();
       default:
-        return AccPage();
+        return MainPage();
     }
   }
 
