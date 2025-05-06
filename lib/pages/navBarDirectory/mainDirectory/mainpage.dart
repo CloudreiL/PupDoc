@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:pupdoc/pages/navBarDirectory/mainDirectory/accpage.dart';
+import 'package:flutter/rendering.dart';
+import 'package:pupdoc/classes/profilePicture.dart';
+import 'package:pupdoc/pages/navBarDirectory/mainDirectory/accountDirectory/accpage.dart';
 import '../../../classes/style.dart';
 
 class MainPage extends StatefulWidget{
@@ -36,7 +38,7 @@ class _MainPageState extends State<MainPage> {
         });
       }
     } catch (e) {
-      print('Ошибка при получении имени: $e');
+      print('ERR: $e');
     }
   }
 
@@ -67,10 +69,7 @@ class _MainPageState extends State<MainPage> {
                     MaterialPageRoute(builder: (_) => const AccPage()),
                   );
                 },
-                child: Image.asset(
-                  "lib/assets/png/icons/dogLoversFemale.png",
-                  height: 50,
-                ),
+                child: ProfilePicture(size: 50)
               ),
             ],
           ),
@@ -93,19 +92,29 @@ class _MainPageState extends State<MainPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Питомцы", style: TextStyles.SansReg),
-                    Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.greenAccent,
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                    Text("Питомцы", style: TextStyles.SansReg.copyWith(fontSize: 25)),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                          3, (index) => GestureDetector(
+                          onTap: (){print(index);},
+                            child: Container(
+                              width: 150,
+                              height: 150,
+                              margin: EdgeInsets.only(top: 10, right: 10),
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(69, 123, 196, 0.9),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                            ),
                           ),
-                          width: 150,
-                          height: 150,
-                          margin: EdgeInsets.only(top: 10),
-                        )
-                      ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                        child: Text("Уведомления", style: TextStyles.SansReg.copyWith(fontSize: 25))
                     )
                   ],
                 ),

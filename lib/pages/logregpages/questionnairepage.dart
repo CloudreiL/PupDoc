@@ -18,11 +18,12 @@ class _QuizzPageState extends State<QuizzPage>{
 
   int questionSteps = 1;
   int currentSteps = 0;
-  final int totalSteps = 5;
+  final int totalSteps = 6;
   final List<Widget> questions = [];
   final Map<int, dynamic> answers = {};
   final DatabaseReference ref = FirebaseDatabase.instance.ref();
   User? user = FirebaseAuth.instance.currentUser;
+  String? profilePicture;
 
   @override
   void initState(){
@@ -46,6 +47,18 @@ class _QuizzPageState extends State<QuizzPage>{
               }else{
                 nextStep();
               }
+          }),
+      QuestionOptions(
+          question: "Какого вы пола?",
+          options: ["Женщина", "Мужчина"],
+          onNext: (answer){
+            if(answer == "Женщина"){
+              answers[5] = "fem";
+            }else if(answer == "Мужчина"){
+              answers[5] = "male";
+            }
+            nextStep();
+            print(answers);
           }),
       QuestionOptions(
           question: "Вы ветеринар или владелец домашнего животного?",
@@ -130,6 +143,21 @@ class _QuizzPageState extends State<QuizzPage>{
   }
 
   Future<void> _saveAnswersToFirebase() async {
+
+    if(answers[5] == "fem" && answers[2] == "dog"){
+      profilePicture = "dogLoversFemale.png";
+      print(profilePicture);
+    } else if(answers[5] == "fem" && answers[2] == "cat"){
+      profilePicture = "catLoversFemale.png";
+      print(profilePicture);
+    } else if(answers[5] == "male" && answers[2] == "dog"){
+      profilePicture = "dogLoversMale.png";
+      print(profilePicture);
+    } else if(answers[5] == "male" && answers[2] == "cat"){
+      profilePicture = "catLoversMale.png";
+      print(profilePicture);
+    }
+
     if (user == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -143,8 +171,10 @@ class _QuizzPageState extends State<QuizzPage>{
     try {
       await ref.child("users/${user!.uid}/info").set({
         "nickname": answers[4],// никнейм бро
-        "name": answers[0], // имя
+        "name": answers[0],// имя
+        "gender": answers[5],// я боевой вертолет
         "role": answers[1], //  ветеринар/владелец
+        "profileImage": profilePicture, // долбанный аватар
         "created_at": ServerValue.timestamp,
       });
 
@@ -154,6 +184,7 @@ class _QuizzPageState extends State<QuizzPage>{
       });
       toApp();
     }catch(e){
+      print("ERR: $e");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Ошибка $e'),

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/animatedComponents/animatedBackground.dart';
 import 'package:pupdoc/classes/style.dart';
 
-
+//TODO: ВАЛДИАЦИЮ ПОЧТЫ ПРОВЕРЬ ДУРА
 import '../../services/firebase_stream.dart';
 import 'loginpage.dart';
 
@@ -123,6 +123,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             duration: Duration(seconds: 2),
           ),
         );
+        print("ERR: $e");
       }
       return;
     }
