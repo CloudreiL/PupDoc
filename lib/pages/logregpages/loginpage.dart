@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/style.dart';
 import 'package:pupdoc/pages/logregpages/registerpage.dart';
 import '../../classes/animatedComponents/animatedBackground.dart';
+import '../../classes/bottomBar.dart';
 import '../../services/firebase_stream.dart';
 
 class LoginPage extends StatefulWidget {
@@ -98,10 +99,6 @@ class _LoginPageState extends State<LoginPage> {
         return;
       }
     }
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => FirebaseStream())
-    );
   }
 
   @override
@@ -175,8 +172,11 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          onPressed: logIn,
                           child: Text('Войти'),
+                          onPressed: (){
+                            logIn();
+                            FocusScope.of(context).unfocus();
+                          },
                         ),
                       ),
                        SizedBox(height: 24),

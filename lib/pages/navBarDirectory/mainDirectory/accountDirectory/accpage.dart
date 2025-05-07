@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pupdoc/services/firebase_functions.dart';
 import '../../../../classes/profilePicture.dart';
 import '../../../../classes/style.dart';
+import '../../../../services/firebase_stream.dart';
 import '../../../logregpages/loginpage.dart';
 
 class AccPage extends StatefulWidget{
@@ -36,9 +37,16 @@ class _AccPageState extends State<AccPage> {
 
   Future<void> _signOut() async {
     await FirebaseFunctions.signOut();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const LoginPage()),
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (_) => const FirebaseStream()),
+          (Route<dynamic> route) => false,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Вы успешно вышли из аккаунта'),
+        duration: Duration(seconds: 2),
+      ),
     );
   }
 
