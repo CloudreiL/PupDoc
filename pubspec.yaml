@@ -38,6 +38,7 @@ flutter:
     - "lib/assets/png/pupdoclogoregister.png"
     - "lib/assets/riveAssets/"
     - "lib/assets/png/background/stateBackground/"
+    - "lib/assets/png/background/accountBackground/"
     - "lib/assets/png/icons/"
 
   fonts:

@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:pupdoc/classes/profilePicture.dart';
 import 'package:pupdoc/pages/navBarDirectory/mainDirectory/accountDirectory/accpage.dart';
+import 'package:pupdoc/services/firebase_functions.dart';
 import '../../../classes/style.dart';
 
 class MainPage extends StatefulWidget{
@@ -21,24 +21,15 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    _requestName();
+    _loadUserName();
   }
 
-  Future<void> _requestName() async {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) return;
-
-    final DatabaseReference ref = FirebaseDatabase.instance.ref("users/${user?.uid}/info/name");
-
-    try {
-      final snapshot = await ref.get();
-      if (snapshot.exists) {
-        setState(() {
-          userName = snapshot.value.toString();
-        });
-      }
-    } catch (e) {
-      print('ERR: $e');
+  Future<void> _loadUserName() async{
+    final nameBase = await FirebaseFunctions.getUserName();
+    if(nameBase!= null){
+      setState(() {
+        userName = nameBase;
+      });
     }
   }
 
@@ -66,7 +57,7 @@ class _MainPageState extends State<MainPage> {
                 onTap: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const AccPage()),
+                    MaterialPageRoute(builder: (_) => AccPage(userName: userName)),
                   );
                 },
                 child: ProfilePicture(size: 50)

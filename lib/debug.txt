@@ -1,2 +1,2 @@
- color: Color.fromRGBO(69, 123, 196, 0.9),
- color: Color.fromRGBO(109, 220, 225, 1.0),
+dark cian Color.fromRGBO(69, 123, 196, 0.9),
+cian  Color.fromRGBO(109, 220, 225, 1.0),
