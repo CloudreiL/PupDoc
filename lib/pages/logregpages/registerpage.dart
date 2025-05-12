@@ -219,7 +219,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          onPressed: signUp,
+                          onPressed: (){
+                            FocusScope.of(context).unfocus();
+                            signUp();
+                          },
                           child: const Text('Зарегистрироваться',),
                         ),
                       ),

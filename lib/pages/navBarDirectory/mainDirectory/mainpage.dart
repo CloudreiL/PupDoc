@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:pupdoc/classes/profilePicture.dart';
 import 'package:pupdoc/pages/navBarDirectory/mainDirectory/accountDirectory/accpage.dart';
+import 'package:pupdoc/pages/navBarDirectory/mainDirectory/petDirectory/petsPage.dart';
 import 'package:pupdoc/services/firebase_functions.dart';
 import '../../../classes/style.dart';
 
@@ -130,7 +131,15 @@ class _MainPageState extends State<MainPage> {
                     : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Питомцы", style: TextStyles.SansReg.copyWith(fontSize: 25)),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => PetsPage()),
+                        );
+                      },
+                        child: Text("Питомцы", style: TextStyles.SansReg.copyWith(fontSize: 25))
+                    ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -185,15 +194,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
-
-
-//                          List.generate(
-//                           3, (index) => GestureDetector(
-//                           onTap: (){print(index);},
-//                             child: Container(
-//                               decoration: BoxDecoration(
-//                               ),
-//                             ),
-//                           ),
-//                         ),

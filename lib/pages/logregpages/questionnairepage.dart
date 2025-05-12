@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/animatedComponents/animatedLinearBar.dart';
-import 'package:pupdoc/classes/questionnaire.dart';
+import 'package:pupdoc/classes/questionnaireModel.dart';
 
 import '../../classes/bottomBar.dart';
 import '../../classes/style.dart';
@@ -106,6 +106,7 @@ class _QuizzPageState extends State<QuizzPage>{
             }
           }),
       QuestionTextField(
+        englishOnly: true,
           question: "Придумайте себе никнейм",
           onNext: (answer){
             answers[4] = answer.trim();

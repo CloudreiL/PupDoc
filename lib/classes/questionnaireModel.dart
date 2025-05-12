@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pupdoc/classes/style.dart';
 
 class QuestionTextField extends StatefulWidget{
   final String question;
   final Function(String) onNext;
+  final bool englishOnly;
 
   const QuestionTextField({
     super.key,
     required this.question,
-    required this.onNext
+    required this.onNext,
+    this.englishOnly = false
   });
 
   @override
@@ -28,7 +31,15 @@ class _QuestionTextFieldState extends State<QuestionTextField> {
         const SizedBox(height: 18),
         TextField(
             controller: textController,
-            decoration: TextFields.FieldDec
+          decoration: TextFields.FieldDec.copyWith(
+            hintText: widget.englishOnly ? 'Только английские буквы и цифры' : null,
+          ),
+          inputFormatters: widget.englishOnly
+              ? [
+            FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9_]')),
+            // Разрешаем буквы a-z, A-Z, цифры 0-9 и подчеркивание
+          ]
+              : null,
         ),
         const SizedBox(height: 24),
         Align(
