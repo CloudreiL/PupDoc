@@ -47,4 +47,30 @@ class FirebaseFunctions{
     await FirebaseAuth.instance.signOut();
   }
 
+  //запрос питомцев
+  static Future<List<Map<String, dynamic>>> getUserPets() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return [];
+
+    final ref = FirebaseDatabase.instance.ref("users/$uid/info/pets");
+
+    try {
+      final snapshot = await ref.get();
+      if (snapshot.exists) {
+        final List petsList = snapshot.value as List;
+        return petsList
+            .where((pet) => pet != null)
+            .map((pet) => {
+          'pet_name': pet['pet_name'] ?? '',
+          'pet_type': pet['pet_type'] ?? '',
+        })
+            .toList();
+      }
+    } catch (e) {
+      print('Ошибка получения списка питомцев: $e');
+    }
+
+    return [];
+  }
+
 }

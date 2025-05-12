@@ -21,11 +21,15 @@ class _MainPageState extends State<MainPage> {
   String _welcomeTimeText = "Доброе утро";
   Color _colorTimeText = Colors.black;
 
+  List<Map<String, dynamic>> _pets = [];
+  bool _isLoadingPets = true;
+
   @override
   void initState() {
     super.initState();
     _loadUserName();
     _setBackgroundImage();
+    _loadPets();
   }
 
   void _setBackgroundImage(){
@@ -54,6 +58,14 @@ class _MainPageState extends State<MainPage> {
         userName = nameBase;
       });
     }
+  }
+  Future<void> _loadPets() async{
+    final pets = await FirebaseFunctions.getUserPets();
+    setState(() {
+      _pets = pets;
+      _isLoadingPets = false;
+    });
+
   }
 
   @override
@@ -103,7 +115,19 @@ class _MainPageState extends State<MainPage> {
                     topRight: Radius.circular(50),
                   ),
                 ),
-                child: Column(
+                child:
+                _isLoadingPets == true
+                    ? Center(
+                  child: SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: CircularProgressIndicator(
+                        strokeWidth: 10,
+                        color: Color.fromRGBO(109, 220, 225, 1.0)
+                    ),
+                  ),
+                )
+                    : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Питомцы", style: TextStyles.SansReg.copyWith(fontSize: 25)),
@@ -111,19 +135,40 @@ class _MainPageState extends State<MainPage> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: List.generate(
-                          3, (index) => GestureDetector(
-                          onTap: (){print(index);},
+                        _pets.length, (index){
+                          final pet = _pets[index];
+                          final petType = pet['pet_type'];
+                          
+                          final imagePath = petType == 'dog'
+                              ? 'lib/assets/png/iconsPet/dog.png'
+                              : 'lib/assets/png/iconsPet/cat.png';
+                          
+                          return GestureDetector(
+                            onTap: (){
+                              print('${pet['pet_name']} tapped');
+                            },
                             child: Container(
                               width: 150,
                               height: 150,
-                              margin: EdgeInsets.only(top: 10, right: 10),
+                              margin: const EdgeInsets.only(top: 10, right: 10),
                               decoration: BoxDecoration(
-                                color: Color.fromRGBO(69, 123, 196, 0.9),
+                                gradient: LinearGradient(
+                                    begin:Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors:[Color.fromRGBO(69, 123, 196, 0.9), Color.fromRGBO(109, 220, 225, 1.0)]),
                                 borderRadius: BorderRadius.circular(25),
                               ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(pet['pet_name'], style: TextStyles.SansBold.copyWith(color: Colors.white),),
+                                  Image.asset(imagePath, width: 80, height: 80)
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                            }
+                        )
                       ),
                     ),
                     Padding(
@@ -140,3 +185,15 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+
+
+
+//                          List.generate(
+//                           3, (index) => GestureDetector(
+//                           onTap: (){print(index);},
+//                             child: Container(
+//                               decoration: BoxDecoration(
+//                               ),
+//                             ),
+//                           ),
+//                         ),

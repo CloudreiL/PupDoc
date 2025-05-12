@@ -39,7 +39,8 @@ flutter:
     - "lib/assets/riveAssets/"
     - "lib/assets/png/background/stateBackground/"
     - "lib/assets/png/background/accountBackground/"
-    - "lib/assets/png/icons/"
+    - "lib/assets/png/iconsAccount/"
+    - "lib/assets/png/iconsPet/"
 
   fonts:
     - family: SansationRegular

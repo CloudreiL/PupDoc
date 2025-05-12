@@ -67,7 +67,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
             ),
           )
         )
-            : Image.asset("lib/assets/png/icons/$userPicture")
+            : Image.asset("lib/assets/png/iconsAccount/$userPicture")
       )
     );
   }

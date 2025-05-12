@@ -178,7 +178,7 @@ class _QuizzPageState extends State<QuizzPage>{
         "created_at": ServerValue.timestamp,
       });
 
-      await ref.child("users/${user!.uid}/info/pets").set({
+      await ref.child("users/${user!.uid}/info/pets/0").set({
         "pet_type": answers[2], // тип питомца
         "pet_name": answers[3], // имя питомца
       });
