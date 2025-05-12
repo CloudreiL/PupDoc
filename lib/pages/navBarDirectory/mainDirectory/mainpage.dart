@@ -17,11 +17,34 @@ class MainPage extends StatefulWidget{
 class _MainPageState extends State<MainPage> {
   User? user = FirebaseAuth.instance.currentUser;
   String? userName;
+  String _backgroundTimeImage = "lib/assets/png/background/stateBackground/morningBackground.png";
+  String _welcomeTimeText = "Доброе утро";
+  Color _colorTimeText = Colors.black;
 
   @override
   void initState() {
     super.initState();
     _loadUserName();
+    _setBackgroundImage();
+  }
+
+  void _setBackgroundImage(){
+    final hour = DateTime.now().hour;
+    print(hour);
+
+    if(hour >= 5 && hour < 12){
+      _backgroundTimeImage = "lib/assets/png/background/stateBackground/morningBackground.png";
+      _welcomeTimeText = "Доброе утро";
+      Color _colorTimeText = Colors.black;
+    }else if(hour >= 12 && hour < 18){
+      _backgroundTimeImage = "lib/assets/png/background/stateBackground/dayBackground.jpg";
+      _welcomeTimeText = "Добрый день";
+      Color _colorTimeText = Colors.black;
+    }else{
+      _backgroundTimeImage = "lib/assets/png/background/stateBackground/nightBackground.jpg";
+      _welcomeTimeText = "Доброй ночи";
+      Color _colorTimeText = Colors.white;
+    }
   }
 
   Future<void> _loadUserName() async{
@@ -36,9 +59,9 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("lib/assets/png/background/stateBackground/morningBackground.png"),
+          image: AssetImage(_backgroundTimeImage),
           fit: BoxFit.cover,
         ),
       ),
@@ -50,8 +73,8 @@ class _MainPageState extends State<MainPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Доброе утро, $userName",
-                style: TextStyles.SansBold,
+                "$_welcomeTimeText, $userName",
+                style: TextStyles.SansBold.copyWith(color: _colorTimeText),
               ),
               GestureDetector(
                 onTap: (){
