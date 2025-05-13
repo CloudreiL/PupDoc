@@ -41,6 +41,7 @@ flutter:
     - "lib/assets/png/background/accountBackground/"
     - "lib/assets/png/iconsAccount/"
     - "lib/assets/png/iconsPet/"
+    - "lib/assets/png/background/forumBackground/"
 
   fonts:
     - family: SansationRegular
