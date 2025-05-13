@@ -54,3 +54,15 @@ class TextFields{
   );
 }
 
+
+// Цвета
+
+class ColorsPalette{
+  static Color DarkCian = Color.fromRGBO(69, 123, 196, 1.0);
+  static Color Cian = Color.fromRGBO(109, 220, 225, 1.0);
+  static Color LightCian = Color.fromRGBO(228, 254, 255, 1);
+
+  static Color DarkGreen = Color.fromRGBO(92, 180, 74, 1.0);
+  static Color LightGreen = Color.fromRGBO(219, 255, 212, 1.0);
+}
+

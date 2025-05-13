@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:pupdoc/classes/style.dart';
 
 class AnimatedProgressBar extends StatefulWidget {
   final int currentStep;
   final int totalSteps;
 
   const AnimatedProgressBar({
-    Key? key,
+    super.key,
     required this.currentStep,
     required this.totalSteps,
-  }) : super(key: key);
+  });
 
   @override
   State<AnimatedProgressBar> createState() => _AnimatedProgressBarState();
@@ -62,9 +63,9 @@ class _AnimatedProgressBarState extends State<AnimatedProgressBar>
         return LinearProgressIndicator(
           value: _animation.value,
           minHeight: 5,
-          backgroundColor: const Color.fromRGBO(69, 123, 196, 0.1),
-          valueColor: const AlwaysStoppedAnimation<Color>(
-            Color.fromRGBO(69, 123, 196, 1.0),
+          backgroundColor: Color.fromRGBO(69, 123, 196, 0.1),
+          valueColor: AlwaysStoppedAnimation<Color>(
+            ColorsPalette.DarkCian
           ),
         );
       },

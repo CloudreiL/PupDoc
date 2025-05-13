@@ -27,6 +27,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController fPassController = TextEditingController();
   TextEditingController sPassController = TextEditingController();
 
+  @override
   void initState() {
     super.initState();
     _tapRecognizer = TapGestureRecognizer()

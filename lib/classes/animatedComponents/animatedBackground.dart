@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animate_gradient/animate_gradient.dart';
+import 'package:pupdoc/classes/style.dart';
 
 class AnimatedBackground extends StatelessWidget {
   final Widget child;
@@ -9,13 +10,13 @@ class AnimatedBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimateGradient(
-      primaryColors: const [
-        Color.fromRGBO(109, 220, 225, 1.0),
-        Color.fromRGBO(69, 123, 196, 1.0),
+      primaryColors: [
+        ColorsPalette.Cian,
+        ColorsPalette.DarkCian
       ],
-      secondaryColors: const [
-        Color.fromRGBO(69, 123, 196, 1.0),
-        Color.fromRGBO(109, 220, 225, 1.0),
+      secondaryColors: [
+        ColorsPalette.DarkCian,
+        ColorsPalette.Cian
       ],
       child: child,
     );

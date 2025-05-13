@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/style.dart';
 import 'package:pupdoc/pages/logregpages/registerpage.dart';
 import '../../classes/animatedComponents/animatedBackground.dart';
-import '../../classes/bottomBar.dart';
-import '../../services/firebase_stream.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

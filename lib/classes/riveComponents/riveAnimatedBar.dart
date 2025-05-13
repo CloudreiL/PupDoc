@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pupdoc/classes/style.dart';
 
 class AnimatedBar extends StatelessWidget{
   const AnimatedBar({
-    Key? key,
+    super.key,
     required this.isActive,
-  }) : super(key:key);
+  });
 
   final bool isActive;
 
@@ -18,7 +19,7 @@ class AnimatedBar extends StatelessWidget{
       duration: const Duration(milliseconds: 200),
 
       decoration: BoxDecoration(
-          color: Color.fromRGBO(109, 220, 225, 1.0),
+          color: ColorsPalette.Cian,
           borderRadius: BorderRadius.all(Radius.circular(20))
       ),
     );

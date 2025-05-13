@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
 
-import '../../classes/style.dart';
+import 'package:flutter/material.dart';
+import 'package:pupdoc/pages/navBarDirectory/forumDirectory/articleListPage.dart';
+import 'package:pupdoc/pages/navBarDirectory/forumDirectory/postListPage.dart';
+
+import '../../../classes/style.dart';
 
 
 class ForumPage extends StatefulWidget{
@@ -16,11 +19,11 @@ class _ForumPageState extends State<ForumPage>{
   bool isPressedPosts = true;
   bool isPressedVet = false;
 
-  Color _colorBackgroundPosts = Color.fromRGBO(228, 254, 255, 1);
-  Color _colorTextPosts = Color.fromRGBO(69, 123, 196, 1);
+  Color _colorBackgroundPosts = ColorsPalette.LightCian;
+  Color _colorTextPosts = ColorsPalette.DarkCian;
 
-  Color _colorBackgroundVet = Color.fromRGBO(219, 255, 212, 1.0);
-  Color _colorTextVet = Color.fromRGBO(92, 180, 74, 1.0);
+  Color _colorBackgroundVet = ColorsPalette.LightGreen;
+  Color _colorTextVet = ColorsPalette.DarkGreen;
 
   @override
   void initState(){
@@ -33,15 +36,15 @@ class _ForumPageState extends State<ForumPage>{
     Color defColorTextButton = Colors.black26;
 
     if(isPressedPosts == true){
-      _colorBackgroundPosts = Color.fromRGBO(228, 254, 255, 1);
-      _colorTextPosts = Color.fromRGBO(69, 123, 196, 1);
+      _colorBackgroundPosts = ColorsPalette.LightCian;
+      _colorTextPosts = ColorsPalette.DarkCian;
     }else{
       _colorBackgroundPosts = defColorBackgroundButton;
       _colorTextPosts = defColorTextButton;
     }
     if(isPressedVet == true){
-      _colorBackgroundVet = Color.fromRGBO(219, 255, 212, 1.0);
-      _colorTextVet = Color.fromRGBO(92, 180, 74, 1.0);
+      _colorBackgroundVet = ColorsPalette.LightGreen;
+      _colorTextVet = ColorsPalette.DarkGreen;
     }else if(isPressedVet == false){
       _colorBackgroundVet = defColorBackgroundButton;
       _colorTextVet = defColorTextButton;
@@ -134,6 +137,26 @@ class _ForumPageState extends State<ForumPage>{
                             ),
                           )
                         ],
+                      ),
+                      Expanded(
+                          child: AnimatedSwitcher(
+                              duration: Duration(milliseconds: 600),
+                            switchInCurve: Curves.easeOutQuart,
+                            switchOutCurve: Curves.easeInQuart,
+                            transitionBuilder: (Widget child, Animation<double> animation){
+                                final isPosts = child.key == const ValueKey('posts');
+
+                                final offsetAnimation = Tween<Offset>(
+                                  begin: Offset(isPosts ? -1.0 : 1.0, 0),
+                                  end: Offset.zero,
+                                ).animate(animation);
+
+                                return SlideTransition(position: offsetAnimation, child: child,);
+                            },
+                            child: isPressedPosts
+                              ? const PostList(key: ValueKey('posts'))
+                                : const ArticleList(key: ValueKey('articles'))
+                          )
                       )
                     ],
                   )

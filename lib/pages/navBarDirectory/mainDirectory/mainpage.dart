@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:pupdoc/classes/profilePicture.dart';
 import 'package:pupdoc/pages/navBarDirectory/mainDirectory/accountDirectory/accpage.dart';
 import 'package:pupdoc/pages/navBarDirectory/mainDirectory/petDirectory/petsPage.dart';
@@ -12,7 +11,6 @@ class MainPage extends StatefulWidget{
 
   @override
   _MainPageState createState() => _MainPageState();
-
 }
 
 class _MainPageState extends State<MainPage> {
@@ -20,7 +18,7 @@ class _MainPageState extends State<MainPage> {
   String? userName;
   String _backgroundTimeImage = "lib/assets/png/background/stateBackground/morningBackground.png";
   String _welcomeTimeText = "Доброе утро";
-  Color _colorTimeText = Colors.black;
+  Color colorTimeText = Colors.black;
 
   List<Map<String, dynamic>> _pets = [];
   bool _isLoadingPets = true;
@@ -40,15 +38,13 @@ class _MainPageState extends State<MainPage> {
     if(hour >= 5 && hour < 12){
       _backgroundTimeImage = "lib/assets/png/background/stateBackground/morningBackground.png";
       _welcomeTimeText = "Доброе утро";
-      Color _colorTimeText = Colors.black;
     }else if(hour >= 12 && hour < 18){
       _backgroundTimeImage = "lib/assets/png/background/stateBackground/dayBackground.jpg";
       _welcomeTimeText = "Добрый день";
-      Color _colorTimeText = Colors.black;
     }else{
       _backgroundTimeImage = "lib/assets/png/background/stateBackground/nightBackground.jpg";
       _welcomeTimeText = "Доброй ночи";
-      Color _colorTimeText = Colors.white;
+      colorTimeText = Colors.white;
     }
   }
 
@@ -68,7 +64,7 @@ class _MainPageState extends State<MainPage> {
     });
 
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -87,7 +83,7 @@ class _MainPageState extends State<MainPage> {
             children: [
               Text(
                 "$_welcomeTimeText, $userName",
-                style: TextStyles.SansBold.copyWith(color: _colorTimeText),
+                style: TextStyles.SansBold.copyWith(color: colorTimeText),
               ),
               GestureDetector(
                 onTap: (){
@@ -138,7 +134,13 @@ class _MainPageState extends State<MainPage> {
                           MaterialPageRoute(builder: (_) => PetsPage()),
                         );
                       },
-                        child: Text("Питомцы", style: TextStyles.SansReg.copyWith(fontSize: 25))
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Питомцы", style: TextStyles.SansReg.copyWith(fontSize: 25)),
+                            Icon(Icons.arrow_forward_ios_rounded, color: Colors.black)
+                          ],
+                        )
                     ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,

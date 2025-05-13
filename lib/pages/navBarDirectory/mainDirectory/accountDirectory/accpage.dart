@@ -4,7 +4,6 @@ import 'package:pupdoc/services/firebase_functions.dart';
 import '../../../../classes/profilePicture.dart';
 import '../../../../classes/style.dart';
 import '../../../../services/firebase_stream.dart';
-import '../../../logregpages/loginpage.dart';
 
 class AccPage extends StatefulWidget{
   final userName;
@@ -19,11 +18,13 @@ class _AccPageState extends State<AccPage> {
 
   final user = FirebaseAuth.instance.currentUser;
   String? nickName;
+  Color userNicknameColor = Colors.black;
 
   @override
   void initState(){
     super.initState();
     _loadNickName();
+    _loadUserColor();
   }
 
   Future<void> _loadNickName() async{
@@ -31,6 +32,19 @@ class _AccPageState extends State<AccPage> {
     if(nickNameBase != null){
       setState(() {
         nickName = nickNameBase;
+      });
+    }
+  }
+  Future<void> _loadUserColor() async{
+    final userRoleBase = await FirebaseFunctions.getUserRole();
+    print(userRoleBase);
+    if(userRoleBase == 'owner'){
+      setState(() {
+        userNicknameColor = ColorsPalette.DarkCian;
+      });
+    }else if(userRoleBase == 'vet'){
+      setState(() {
+        userNicknameColor = ColorsPalette.DarkGreen;
       });
     }
   }
@@ -100,7 +114,7 @@ class _AccPageState extends State<AccPage> {
                   children: [
                     ProfilePicture(size: 120),
                     Text(widget.userName, style: TextStyles.SansReg.copyWith(fontSize: 25)),
-                    Text("@$nickName", style: TextStyles.SansReg),
+                    Text("@$nickName", style: TextStyles.SansReg.copyWith(color: userNicknameColor)),
                     Padding(
                         padding: EdgeInsets.only(top: 30),
                         child: ElevatedButton(

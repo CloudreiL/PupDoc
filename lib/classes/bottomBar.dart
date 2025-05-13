@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/riveComponents/riveAnimatedBar.dart';
 import 'package:pupdoc/classes/riveComponents/riveModelBar.dart';
 import 'package:pupdoc/classes/riveComponents/riveUtils.dart';
-import 'package:pupdoc/pages/navBarDirectory/forum.dart';
+import 'package:pupdoc/classes/style.dart';
+import 'package:pupdoc/pages/navBarDirectory/forumDirectory/forum.dart';
 import 'package:pupdoc/pages/navBarDirectory/mainDirectory/mainpage.dart';
 import 'package:pupdoc/pages/navBarDirectory/searchpage.dart';
 import 'package:pupdoc/pages/navBarDirectory/settingspage.dart';
@@ -48,7 +49,7 @@ class _BottomNavBarState extends State<BottomNavBar>{
             padding: EdgeInsets.all(12),
             margin: EdgeInsets.symmetric(horizontal: 24),
             decoration: BoxDecoration(
-                color: Color.fromRGBO(69, 123, 196, 0.9),
+                color: ColorsPalette.DarkCian,
                 borderRadius: BorderRadius.all(Radius.circular(24))
             ),
             child: Row(
