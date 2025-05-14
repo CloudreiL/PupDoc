@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:pupdoc/pages/navBarDirectory/forumDirectory/articleListPage.dart';
-import 'package:pupdoc/pages/navBarDirectory/forumDirectory/postListPage.dart';
+import 'package:pupdoc/pages/navBarDirectory/forumDirectory/articleDirectory/articleListPage.dart';
+import 'package:pupdoc/pages/navBarDirectory/forumDirectory/postDirectory/postListPage.dart';
 
 import '../../../classes/style.dart';
 import '../../../services/firebase_functions.dart';
-import 'createPostPage.dart';
+import 'postDirectory/createPostPage.dart';
 
 
 class ForumPage extends StatefulWidget{

@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pupdoc/services/firebase_functions.dart';
 
-import '../../../classes/style.dart';
+import '../../../../classes/style.dart';
 
 class CreatePostPage extends StatefulWidget{
   const CreatePostPage({super.key});
@@ -11,6 +13,40 @@ class CreatePostPage extends StatefulWidget{
 }
 
 class _CreatePostPageState extends State<CreatePostPage>{
+  TextEditingController topicController = TextEditingController();
+  TextEditingController descrController = TextEditingController();
+
+  @override
+  void dispose(){
+    topicController.dispose();
+    descrController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _createPost() async{
+    final topic = topicController.text.trim();
+    final descr = descrController.text.trim();
+
+    final success = await FirebaseFunctions.createForumPost(
+        topic: topic,
+        description: descr);
+
+    if(success){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Пост создан! :)'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Что-то пошло не так.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context){
@@ -48,6 +84,7 @@ class _CreatePostPageState extends State<CreatePostPage>{
                         Container(
                           width: MediaQuery.of(context).size.width * 0.9,
                           child: TextField(
+                            controller: topicController,
                               decoration: TextFields.FieldDec.copyWith(labelText: 'Тема',),
                             maxLength: 300,
                           ),
@@ -65,6 +102,7 @@ class _CreatePostPageState extends State<CreatePostPage>{
                                 scrollbarOrientation: ScrollbarOrientation.right,
 
                                 child: TextField(
+                                  controller: descrController,
                                   decoration: TextFields.FieldDec.copyWith(
                                       labelText: "Описание",
 
@@ -79,7 +117,7 @@ class _CreatePostPageState extends State<CreatePostPage>{
                           ),
                         ),
                         ElevatedButton(
-                            onPressed: (){},
+                            onPressed: _createPost,
                             child: Text('Запостить',style: TextStyles.SansReg.copyWith(color: Colors.white,fontSize: 15)),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorsPalette.DarkCian

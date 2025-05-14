@@ -176,7 +176,7 @@ class _QuizzPageState extends State<QuizzPage>{
         "gender": answers[5],// я боевой вертолет
         "role": answers[1], //  ветеринар/владелец
         "profileImage": profilePicture, // долбанный аватар
-        "created_at": ServerValue.timestamp,
+        "created_at": DateTime.now().toIso8601String(), //че по времени ало
       });
 
       await ref.child("users/${user!.uid}/info/pets/0").set({
