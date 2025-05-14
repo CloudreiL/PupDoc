@@ -46,6 +46,10 @@ class _AccPageState extends State<AccPage> {
       setState(() {
         userNicknameColor = ColorsPalette.DarkGreen;
       });
+    }else{
+      setState(() {
+        userNicknameColor = Colors.red;
+      });
     }
   }
 

@@ -4,6 +4,8 @@ import 'package:pupdoc/pages/navBarDirectory/forumDirectory/articleListPage.dart
 import 'package:pupdoc/pages/navBarDirectory/forumDirectory/postListPage.dart';
 
 import '../../../classes/style.dart';
+import '../../../services/firebase_functions.dart';
+import 'createPostPage.dart';
 
 
 class ForumPage extends StatefulWidget{
@@ -25,15 +27,29 @@ class _ForumPageState extends State<ForumPage>{
   Color _colorBackgroundVet = ColorsPalette.LightGreen;
   Color _colorTextVet = ColorsPalette.DarkGreen;
 
+  String? userRole;
+
   @override
   void initState(){
     super.initState();
+    _getUserRole();
     changeColor();
+  }
+
+  Future<void> _getUserRole() async{
+    final userRoleBase = await FirebaseFunctions.getUserRole();
+    print(userRoleBase);
+    if(userRoleBase != null){
+      setState(() {
+        userRole = userRoleBase;
+      });
+    }
   }
 
   void changeColor(){
     Color defColorBackgroundButton = Color.fromRGBO(240, 240, 240, 1);
     Color defColorTextButton = Colors.black26;
+    String? userRole;
 
     if(isPressedPosts == true){
       _colorBackgroundPosts = ColorsPalette.LightCian;
@@ -50,6 +66,7 @@ class _ForumPageState extends State<ForumPage>{
       _colorTextVet = defColorTextButton;
     }
   }
+
 
   @override
   Widget build(BuildContext context){
@@ -85,6 +102,7 @@ class _ForumPageState extends State<ForumPage>{
                     children: [
                       Row(
                         children: [
+                          //Кнопка посты
                           GestureDetector(
                             onTap: (){
                               if(isPressedPosts == false){
@@ -110,7 +128,8 @@ class _ForumPageState extends State<ForumPage>{
                               child: Text("Посты", style: TextStyles.SansReg.copyWith(fontSize: 16, color: _colorTextPosts)),
                             ),
                           ),
-                          SizedBox(width: 10,),
+                          SizedBox(width: 10),
+                          //Кнопка статей
                           GestureDetector(
                             onTap: (){
                               if(isPressedVet == false){
@@ -135,7 +154,27 @@ class _ForumPageState extends State<ForumPage>{
                               alignment: Alignment.center,
                               child: Text("Статьи ветеренаров", style: TextStyles.SansReg.copyWith(fontSize: 16, color: _colorTextVet)),
                             ),
-                          )
+                          ),
+                          SizedBox(width: 25),
+                          //Кнопка создания постов/статей
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder:  (context) => CreatePostPage())
+                              );
+                            },
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 200),
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color:  ColorsPalette.DarkCian
+                              ),
+                              child: Icon(Icons.add_rounded, color: Colors.white),
+                            ),
+                          ),
                         ],
                       ),
                       Expanded(
