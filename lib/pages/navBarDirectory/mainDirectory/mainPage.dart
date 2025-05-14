@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/profilePicture.dart';
-import 'package:pupdoc/pages/navBarDirectory/mainDirectory/accountDirectory/accpage.dart';
+import 'package:pupdoc/pages/navBarDirectory/mainDirectory/accountDirectory/accPage.dart';
 import 'package:pupdoc/pages/navBarDirectory/mainDirectory/petDirectory/petsPage.dart';
 import 'package:pupdoc/services/firebase_functions.dart';
 import '../../../classes/style.dart';

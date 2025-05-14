@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:pupdoc/pages/logregpages/questionnairepage.dart';
-import 'package:pupdoc/pages/logregpages/registerpage.dart';
+import 'package:pupdoc/pages/logRegDirectory/questionnairePage.dart';
+import 'package:pupdoc/pages/logRegDirectory/registerPage.dart';
 
 import '../../classes/style.dart';
 

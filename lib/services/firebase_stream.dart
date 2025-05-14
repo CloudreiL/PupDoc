@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../classes/bottomBar.dart';
-import '../pages/logregpages/email.dart';
-import '../pages/logregpages/loginpage.dart';
+import '../pages/logRegDirectory/emailPage.dart';
+import '../pages/logRegDirectory/loginPage.dart';
 
 class FirebaseStream extends StatelessWidget {
   const FirebaseStream({super.key});

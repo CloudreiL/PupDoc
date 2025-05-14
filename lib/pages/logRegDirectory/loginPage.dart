@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/style.dart';
-import 'package:pupdoc/pages/logregpages/registerpage.dart';
+import 'package:pupdoc/pages/logRegDirectory/registerPage.dart';
 import '../../classes/animatedComponents/animatedBackground.dart';
 
 class LoginPage extends StatefulWidget {

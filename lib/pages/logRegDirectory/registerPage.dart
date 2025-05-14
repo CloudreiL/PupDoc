@@ -8,7 +8,7 @@ import 'package:pupdoc/classes/style.dart';
 
 //TODO: ВАЛДИАЦИЮ ПОЧТЫ ПРОВЕРЬ ДУРА
 import '../../services/firebase_stream.dart';
-import 'loginpage.dart';
+import 'loginPage.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});

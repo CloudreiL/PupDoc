@@ -5,7 +5,7 @@ import 'package:pupdoc/pages/navBarDirectory/forumDirectory/postDirectory/postLi
 
 import '../../../classes/style.dart';
 import '../../../services/firebase_functions.dart';
-import 'postDirectory/createPostPage.dart';
+import 'postDirectory/postCreatePage.dart';
 
 
 class ForumPage extends StatefulWidget{

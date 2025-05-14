@@ -3,10 +3,10 @@ import 'package:pupdoc/classes/riveComponents/riveAnimatedBar.dart';
 import 'package:pupdoc/classes/riveComponents/riveModelBar.dart';
 import 'package:pupdoc/classes/riveComponents/riveUtils.dart';
 import 'package:pupdoc/classes/style.dart';
-import 'package:pupdoc/pages/navBarDirectory/forumDirectory/forum.dart';
-import 'package:pupdoc/pages/navBarDirectory/mainDirectory/mainpage.dart';
-import 'package:pupdoc/pages/navBarDirectory/searchpage.dart';
-import 'package:pupdoc/pages/navBarDirectory/settingspage.dart';
+import 'package:pupdoc/pages/navBarDirectory/forumDirectory/forumPage.dart';
+import 'package:pupdoc/pages/navBarDirectory/mainDirectory/mainPage.dart';
+import 'package:pupdoc/pages/navBarDirectory/searchPage.dart';
+import 'package:pupdoc/pages/navBarDirectory/settingsPage.dart';
 import 'package:rive/rive.dart';
 
 
