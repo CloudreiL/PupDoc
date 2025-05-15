@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pupdoc/services/firebase_functions.dart';
@@ -86,7 +85,7 @@ class _CreatePostPageState extends State<CreatePostPage>{
                           child: TextField(
                             controller: topicController,
                               decoration: TextFields.FieldDec.copyWith(labelText: 'Тема',),
-                            maxLength: 300,
+                            maxLength: 100,
                           ),
                         ),
                         SizedBox(height: 30),
@@ -105,7 +104,6 @@ class _CreatePostPageState extends State<CreatePostPage>{
                                   controller: descrController,
                                   decoration: TextFields.FieldDec.copyWith(
                                       labelText: "Описание",
-
                                   ),
                                   maxLength: 1500,
                                   expands: true,

@@ -61,6 +61,25 @@ class FirebaseFunctions{
     return null;
   }
 
+  static Future<String?> getUsersRoles({
+    required String userUID
+}) async{
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if(uid == null) return null;
+
+    final DatabaseReference ref = FirebaseDatabase.instance.ref("users/$userUID/info/role");
+
+    try{
+      final snapshot = await ref.get();
+      if(snapshot.exists){
+        return snapshot.value.toString();
+      }
+    }catch(e){
+      print('ERR: $e');
+    }
+    return null;
+  }
+
   //выход из акка
   static Future<void> signOut() async{
     await FirebaseAuth.instance.signOut();
@@ -92,6 +111,7 @@ class FirebaseFunctions{
     return [];
   }
 
+  //создается пост ААААААААААААААААААААААААААА
   static Future<bool> createForumPost({
     required String topic,
     required String description

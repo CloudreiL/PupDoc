@@ -49,7 +49,6 @@ class _ForumPageState extends State<ForumPage>{
   void changeColor(){
     Color defColorBackgroundButton = Color.fromRGBO(240, 240, 240, 1);
     Color defColorTextButton = Colors.black26;
-    String? userRole;
 
     if(isPressedPosts == true){
       _colorBackgroundPosts = ColorsPalette.LightCian;
