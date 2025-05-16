@@ -136,7 +136,7 @@ class _PostPageState extends State<PostPage>{
                           )
                       ),
                       SizedBox(height: 20,),
-                      PostCommentsPage()
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.4, child: PostCommentsPage(postId: widget.postID, userNicknameColor: widget.userNicknameColor))
                     ],
                   ),
                 ],

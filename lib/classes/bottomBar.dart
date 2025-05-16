@@ -5,12 +5,9 @@ import 'package:pupdoc/classes/riveComponents/riveUtils.dart';
 import 'package:pupdoc/classes/style.dart';
 import 'package:pupdoc/pages/navBarDirectory/forumDirectory/forumPage.dart';
 import 'package:pupdoc/pages/navBarDirectory/mainDirectory/mainPage.dart';
-import 'package:pupdoc/pages/navBarDirectory/searchPage.dart';
 import 'package:pupdoc/pages/navBarDirectory/settingsPage.dart';
 import 'package:rive/rive.dart';
 
-
-//TODO: replace bottomnavbar
 class BottomNavBar extends StatefulWidget{
   const BottomNavBar({super.key});
 
@@ -27,10 +24,8 @@ class _BottomNavBarState extends State<BottomNavBar>{
       case 0:
         return MainPage();
       case 1:
-        return SearchPage();
-      case 2:
         return ForumPage();
-      case 3:
+      case 2:
         return SettingsPage();
       default:
         return MainPage();

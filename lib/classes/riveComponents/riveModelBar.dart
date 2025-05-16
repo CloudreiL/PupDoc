@@ -22,11 +22,6 @@ List<RiveAsset> bottomNavBar = [
       title: "User"
   ),
   RiveAsset("lib/assets/riveAssets/icons.riv",
-      artboard: "SEARCH",
-      stateMachineName: "SEARCH_Interactivity",
-      title: "Search"
-  ),
-  RiveAsset("lib/assets/riveAssets/icons.riv",
       artboard: "CHAT",
       stateMachineName: "CHAT_Interactivity",
       title: "Chat"

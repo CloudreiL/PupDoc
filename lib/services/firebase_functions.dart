@@ -182,7 +182,7 @@ class FirebaseFunctions{
     final comment_author_nickname = await getUserNickname();
     final comment_author_avatar = await getUserProfileImage();
 
-    final DatabaseReference ref = FirebaseDatabase.instance.ref('forum/posts/$postID/сomments').push();
+    final DatabaseReference ref = FirebaseDatabase.instance.ref('forum/posts/$postID/comments').push();
     final String? commentID = ref.key;
 
     if(commentID == null){
@@ -191,7 +191,7 @@ class FirebaseFunctions{
     }
 
     final comment = {
-      'description': comment_descr.trim(),
+      'comment_descr': comment_descr.trim(),
       'comment_author_uid': uid,
       'comment_author_nickname': comment_author_nickname ?? 'unknown',
       'comment_author_avatar': comment_author_avatar,
@@ -204,8 +204,6 @@ class FirebaseFunctions{
       print('ERR: $e');
       return false;
     }
-
-
   }
 }
 
