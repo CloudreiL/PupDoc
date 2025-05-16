@@ -1,6 +1,7 @@
 import "package:firebase_auth/firebase_auth.dart";
 import "package:firebase_database/firebase_database.dart";
 import "package:flutter/material.dart";
+import "package:pupdoc/services/firebase_functions.dart";
 
 class ProfilePicture extends StatefulWidget{
   final double size;
@@ -23,26 +24,11 @@ class _ProfilePictureState extends State<ProfilePicture> {
   }
 
   Future<void> _requestProfileImage() async{
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if(uid == null) return;
-
-    final DatabaseReference ref = FirebaseDatabase.instance.ref("users/${user?.uid}/info/profileImage");
-
-    try{
-      final snapshot = await ref.get();
-      if(snapshot.exists){
-        setState(() {
-          userPicture = snapshot.value.toString();
-        });
-      }
-    }catch(e){
-      print('IMG ERR: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('IMG ERR: $e'),
-          duration: Duration(seconds: 2),
-        ),
-      );
+    final userPictureBase = await FirebaseFunctions.getUserProfileImage();
+    if(userPictureBase != null){
+      setState(() {
+        userPicture = userPictureBase;
+      });
     }
   }
 

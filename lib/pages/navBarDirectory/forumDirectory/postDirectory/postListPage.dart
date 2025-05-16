@@ -22,7 +22,6 @@ class _PostListState extends State<PostList> {
   }
 
 
-
   Future<List<Map<String, dynamic>>> _fetchPostsWithUserData() async {
     final postsSnapshot = await _postsRef.get();
     if (!postsSnapshot.exists) return [];
@@ -112,7 +111,7 @@ class _PostListState extends State<PostList> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(builder: (index) => PostPage(
-                        postID: post['postID'],
+                        postID: post['postId'],
                         authorImage: post['profileImage'],
                         authorNickname: post['nickname'],
                         postTopic: post['topic'],

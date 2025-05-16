@@ -1,8 +1,6 @@
-import 'dart:ui';
-
+import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 
 class FirebaseFunctions{
   //получить имя
@@ -43,6 +41,7 @@ class FirebaseFunctions{
     return null;
   }
 
+  //Запрос роли
   static Future<String?> getUserRole() async{
     User? user = FirebaseAuth.instance.currentUser;
     final uid = FirebaseAuth.instance.currentUser?.uid;
@@ -61,6 +60,23 @@ class FirebaseFunctions{
     return null;
   }
 
+  static Future<String?> getUserProfileImage() async{
+    User? user = FirebaseAuth.instance.currentUser;
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if(uid == null) return null;
+
+    final DatabaseReference ref = FirebaseDatabase.instance.ref("users/${user?.uid}/info/profileImage");
+    try{
+      final snapshot = await ref.get();
+      if(snapshot.exists){
+        return snapshot.value.toString();
+      }
+    }catch(e){
+      print('ERR: $e');
+    }
+  }
+
+  //Запрос ролей
   static Future<String?> getUsersRoles({
     required String userUID
 }) async{
@@ -150,4 +166,47 @@ class FirebaseFunctions{
     }
 
   }
+
+  //Отправка комментариев
+  static Future<bool> createCommentPost({
+    required String? postID,
+    required comment_descr,
+  }) async{
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if(uid == null) return false;
+
+    if(comment_descr.trim().isEmpty){
+      print('Не все поля заполнены');
+    };
+
+    final comment_author_nickname = await getUserNickname();
+    final comment_author_avatar = await getUserProfileImage();
+
+    final DatabaseReference ref = FirebaseDatabase.instance.ref('forum/posts/$postID/сomments').push();
+    final String? commentID = ref.key;
+
+    if(commentID == null){
+      print('Ошибка не удалось получить ключ комментария');
+      return false;
+    }
+
+    final comment = {
+      'description': comment_descr.trim(),
+      'comment_author_uid': uid,
+      'comment_author_nickname': comment_author_nickname ?? 'unknown',
+      'comment_author_avatar': comment_author_avatar,
+      'created_at': DateTime.now().toIso8601String(),
+    };
+    try{
+      await ref.set(comment);
+      return true;
+    }catch(e){
+      print('ERR: $e');
+      return false;
+    }
+
+
+  }
 }
+
+

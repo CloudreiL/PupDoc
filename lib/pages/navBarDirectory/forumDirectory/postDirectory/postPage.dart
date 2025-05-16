@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pupdoc/pages/navBarDirectory/forumDirectory/postDirectory/postCommentsList.dart';
 import '../../../../classes/style.dart';
+import '../../../../services/firebase_functions.dart';
 
 class PostPage extends StatefulWidget{
 
@@ -9,23 +10,52 @@ class PostPage extends StatefulWidget{
   String? authorNickname;
   String? postTopic;
   String? postDescr;
-  String? postID;
+  String postID;
   Color userNicknameColor;
 
-  PostPage({super.key,
+  PostPage({Key? key,
     required this.authorImage,
     required this.authorNickname,
     required this.postDescr,
     required this.postTopic,
     required this.postID,
     required this.userNicknameColor
-  });
+  }) : super(key: key);
 
   @override
   _PostPageState createState() => _PostPageState();
 }
 
 class _PostPageState extends State<PostPage>{
+
+  TextEditingController commentController = TextEditingController();
+
+  @override
+  Future<void> sendCommentBase() async{
+    final commentBase = commentController.text.trim();
+    final postBaseID = widget.postID;
+
+    final success = await FirebaseFunctions.createCommentPost(
+        comment_descr: commentBase.trim(),
+        postID: postBaseID
+    );
+
+    if(success){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Комментарий отправлен! :)'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }else{
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Что-то пошло не так.'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context){
@@ -86,6 +116,7 @@ class _PostPageState extends State<PostPage>{
                           width: MediaQuery.of(context).size.width * 0.9,
                           height: 100,
                           child: TextField(
+                            controller: commentController,
                             decoration: TextFields.FieldDec.copyWith(
                               labelText: "Отправьте ответ",
                             ),
@@ -98,7 +129,7 @@ class _PostPageState extends State<PostPage>{
                       ),
                       SizedBox(height: 5),
                       ElevatedButton(
-                        onPressed: (){},
+                        onPressed: sendCommentBase,
                           child: Text('Отправить',style: TextStyles.SansReg.copyWith(color: Colors.white,fontSize: 15)),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: ColorsPalette.DarkCian
