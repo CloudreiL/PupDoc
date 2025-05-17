@@ -20,9 +20,13 @@ A mobile app on Flutter that is a forum for communication between veterinarians 
 - [cupertino_icons: ^1.0.2](https://pub.dev/packages/cupertino_icons)
 - [material_design_icons_flutter: ^7.0.7296](https://pub.dev/packages/material_design_icons_flutter)
 - [animate_gradient: ^0.0.3](https://pub.dev/packages/animate_gradient)
+- [flutter_launcher_icons: ^0.14.3](https://pub.dev/packages/flutter_launcher_icons)
 
 
 # Presentation
+
+## AppIcon
+![ic_launcher.png](lib/assets/appIcons/android/res/mipmap-xxhdpi/ic_launcher.png)
 
 ## LoginRegistration Screen
 ![photo_8_2025-05-17_16-58-45.jpg](lib/assets/readMe/presentation/loginRegScreens/photo_8_2025-05-17_16-58-45.jpg)
