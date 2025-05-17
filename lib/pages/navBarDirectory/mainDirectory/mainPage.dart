@@ -182,10 +182,10 @@ class _MainPageState extends State<MainPage> {
                         )
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10),
-                        child: Text("Уведомления", style: TextStyles.SansReg.copyWith(fontSize: 25))
-                    )
+                    // Padding(
+                    //   padding: EdgeInsets.only(top: 10),
+                    //     child: Text("Уведомления", style: TextStyles.SansReg.copyWith(fontSize: 25))
+                    // )
                   ],
                 ),
               ),

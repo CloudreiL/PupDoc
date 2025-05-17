@@ -2,11 +2,12 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/style.dart';
 
+import '../../../../services/firebase_functions.dart';
+
 class PostCommentsPage extends StatefulWidget {
   final String postId;
-  final Color userNicknameColor;
 
-  const PostCommentsPage({super.key, required this.postId, required this.userNicknameColor});
+  const PostCommentsPage({super.key, required this.postId});
 
   @override
   _PostCommentsPageState createState() => _PostCommentsPageState();
@@ -34,20 +35,38 @@ class _PostCommentsPageState extends State<PostCommentsPage> {
 
     List<Map<String, dynamic>> comments = [];
 
-    commentsRaw.forEach((key, value) {
-      final comment = Map<String, dynamic>.from(value);
+    for (var entry in commentsRaw.entries) {
+      final comment = Map<String, dynamic>.from(entry.value);
+      final authorUid = comment['comment_author_uid'] ?? '';
+      Color nicknameColor;
+
+      try {
+        final userRoleBase = await FirebaseFunctions.getUsersRoles(userUID: authorUid);
+        if (userRoleBase == 'owner') {
+          nicknameColor = ColorsPalette.DarkCian;
+        } else if (userRoleBase == 'vet') {
+          nicknameColor = ColorsPalette.DarkGreen;
+        } else {
+          nicknameColor = Colors.red; //
+        }
+      } catch (e) {
+        print('Ошибка получения роли: $e');
+        nicknameColor = Colors.grey; //
+      }
+
       comments.add({
-        'nickname_color': widget.userNicknameColor,
+        'nickname_color': nicknameColor,
         'description': comment['comment_descr'] ?? '',
-        'comment_author_uid': comment['comment_author_uid'] ?? '',
+        'comment_author_uid': authorUid,
         'comment_author_nickname': comment['comment_author_nickname'] ?? '',
         'comment_author_avatar': comment['comment_author_avatar'] ?? 'default.png',
         'created_at': comment['created_at'] ?? '',
       });
-    });
+    }
 
     return comments;
   }
+
 
 
 
