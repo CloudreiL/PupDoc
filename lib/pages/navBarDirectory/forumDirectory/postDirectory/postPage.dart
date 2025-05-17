@@ -129,7 +129,10 @@ class _PostPageState extends State<PostPage>{
                       ),
                       SizedBox(height: 5),
                       ElevatedButton(
-                        onPressed: sendCommentBase,
+                        onPressed: (){
+                          sendCommentBase();
+                          commentController.clear();
+                        },
                           child: Text('Отправить',style: TextStyles.SansReg.copyWith(color: Colors.white,fontSize: 15)),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: ColorsPalette.DarkCian

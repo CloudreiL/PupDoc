@@ -55,6 +55,7 @@ class _QuestionTextFieldState extends State<QuestionTextField> {
                 ),
                 onPressed: (){
                   widget.onNext(textController.text);
+                  textController.clear();
                 },
                 child: Text('Далее')
             )

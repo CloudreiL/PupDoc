@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pupdoc/classes/bottomBar.dart';
+import 'package:pupdoc/pages/navBarDirectory/forumDirectory/forumPage.dart';
 import 'package:pupdoc/services/firebase_functions.dart';
 
 import '../../../../classes/style.dart';
+import '../../../../services/firebase_stream.dart';
 
 class CreatePostPage extends StatefulWidget{
   const CreatePostPage({super.key});
@@ -31,12 +34,7 @@ class _CreatePostPageState extends State<CreatePostPage>{
         description: descr);
 
     if(success){
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Пост создан! :)'),
-          duration: Duration(seconds: 2),
-        ),
-      );
+      print('Succes');
     }else{
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -115,7 +113,19 @@ class _CreatePostPageState extends State<CreatePostPage>{
                           ),
                         ),
                         ElevatedButton(
-                            onPressed: _createPost,
+                            onPressed: (){
+                              _createPost();
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(builder: (_) => const FirebaseStream()),
+                                    (Route<dynamic> route) => false,
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Пост создан! :)'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
                             child: Text('Запостить',style: TextStyles.SansReg.copyWith(color: Colors.white,fontSize: 15)),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorsPalette.DarkCian
