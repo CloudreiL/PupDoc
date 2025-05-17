@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pupdoc/services/firebase_functions.dart';
 
 import '../../../../classes/style.dart';
+import '../../../../services/firebase_stream.dart';
 
 class CreateArticlePage extends StatefulWidget{
   const CreateArticlePage({super.key});
@@ -31,12 +32,7 @@ class _CreateArticlePageState extends State<CreateArticlePage>{
         description: descr);
 
     if(success){
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Статья создана! :)'),
-          duration: Duration(seconds: 2),
-        ),
-      );
+      print('Success');
     }else{
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -115,7 +111,19 @@ class _CreateArticlePageState extends State<CreateArticlePage>{
                           ),
                         ),
                         ElevatedButton(
-                            onPressed: _createArticle,
+                            onPressed: (){
+                              _createArticle();
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(builder: (_) => const FirebaseStream()),
+                                    (Route<dynamic> route) => false,
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Пост создан! :)'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
                             child: Text('Запостить',style: TextStyles.SansReg.copyWith(color: Colors.white,fontSize: 15)),
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: ColorsPalette.DarkCian
