@@ -164,7 +164,44 @@ class FirebaseFunctions{
       print('ERR: $e');
       return false;
     }
+  }
 
+  static Future<bool> createForumArticle({
+    required String topic,
+    required String description
+  })async{
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if(uid == null) return false;
+
+    if(topic.trim().isEmpty || description.trim().isEmpty){
+      print('Не все поля заполнены');
+    }
+
+    final nicknameBase = await getUserNickname();
+
+    final DatabaseReference ref = FirebaseDatabase.instance.ref('forum/article').push();
+    final String? articleID = ref.key;
+
+    if(articleID == null){
+      print('Ошибка не удалось получить ключ записи');
+      return false;
+    }
+
+    final post = {
+      'topic': topic.trim(),
+      'description': description.trim(),
+      'author_uid': uid,
+      'author_nickname': nicknameBase ?? 'unknown',
+      'created_at': DateTime.now().toIso8601String(),
+      'comments': []
+    };
+    try{
+      await ref.set(post);
+      return true;
+    }catch(e){
+      print('ERR: $e');
+      return false;
+    }
   }
 
   //Отправка комментариев

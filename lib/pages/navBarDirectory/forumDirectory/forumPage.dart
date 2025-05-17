@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:pupdoc/pages/navBarDirectory/forumDirectory/articleDirectory/articleCreatePage.dart';
 import 'package:pupdoc/pages/navBarDirectory/forumDirectory/articleDirectory/articleListPage.dart';
 import 'package:pupdoc/pages/navBarDirectory/forumDirectory/postDirectory/postListPage.dart';
 
@@ -26,6 +27,7 @@ class _ForumPageState extends State<ForumPage>{
 
   Color _colorBackgroundVet = ColorsPalette.LightGreen;
   Color _colorTextVet = ColorsPalette.DarkGreen;
+  Color _colorCreateButton = ColorsPalette.DarkGreen;
 
   String? userRole;
 
@@ -156,24 +158,7 @@ class _ForumPageState extends State<ForumPage>{
                           ),
                           SizedBox(width: 25),
                           //Кнопка создания постов/статей
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder:  (context) => CreatePostPage())
-                              );
-                            },
-                            child: AnimatedContainer(
-                              duration: Duration(milliseconds: 200),
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color:  ColorsPalette.DarkCian
-                              ),
-                              child: Icon(Icons.add_rounded, color: Colors.white),
-                            ),
-                          ),
+                          if (_buildCreateButton() != null) _buildCreateButton()!,
                         ],
                       ),
                       Expanded(
@@ -205,4 +190,45 @@ class _ForumPageState extends State<ForumPage>{
       )
     );
   }
+
+  Widget? _buildCreateButton() {
+    if (userRole == null) return null;
+
+    if (isPressedPosts) {
+      return _createButton(ColorsPalette.DarkCian);
+    }
+
+    if (isPressedVet && userRole == 'vet') {
+      return _createButton(ColorsPalette.DarkGreen);
+    }
+
+    return null;
+  }
+
+  Widget _createButton(Color color) {
+    return GestureDetector(
+      onTap: () {
+        if (isPressedPosts) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CreatePostPage()));
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CreateArticlePage()));
+        }
+      },
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        height: 30,
+        width: 30,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: color,
+        ),
+        child: Icon(Icons.add_rounded, color: Colors.white),
+      ),
+    );
+  }
 }
+
