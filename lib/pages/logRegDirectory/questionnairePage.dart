@@ -74,15 +74,12 @@ class _QuizzPageState extends State<QuizzPage>{
           }),
       QuestionOptions(
           question: "Какой у вас питомец?",
-          options: ["Кошка", "Собака", "Другое"],
+          options: ["Кошка", "Собака"],
           onNext: (answer){
             if(answer == "Кошка"){
               answers[2] = "cat";
             }else if(answer == "Собака"){
               answers[2] = "dog";
-            }
-            else if(answer == "Другое"){
-              answers[2] = "other";
             }
             nextStep();
             print(answers);

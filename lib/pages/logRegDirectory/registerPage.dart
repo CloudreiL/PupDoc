@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:pupdoc/classes/animatedComponents/animatedBackground.dart';
 import 'package:pupdoc/classes/style.dart';
 
-//TODO: ВАЛДИАЦИЮ ПОЧТЫ ПРОВЕРЬ ДУРА
+//TODO: ВАЛИДИАЦИЮ ПОЧТЫ ПРОВЕРЬ ДУРА
 import '../../services/firebase_stream.dart';
 import 'loginPage.dart';
 

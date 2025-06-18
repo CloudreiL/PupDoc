@@ -86,70 +86,68 @@ class _PostCommentsPageState extends State<PostCommentsPage> {
 
         final comments = snapshot.data!;
 
-        return Expanded(
-          child: ListView.builder(
-            itemCount: comments.length,
-            itemBuilder: (context, index) {
-              final comment = comments[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Container(
-                  padding: const EdgeInsets.all(14.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
-                      )
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      /// Аватар + ник + дата
-                      Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(24),
-                            child: Image.asset(
-                              "lib/assets/png/iconsAccount/${comment["comment_author_avatar"]}",
-                              width: 36,
-                              height: 36,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '@${comment['comment_author_nickname']}',
-                                style: TextStyles.SansBold.copyWith(color: comment['nickname_color'], fontSize: 14)
-                              ),
-                              Text(
-                                comment['created_at'].toString().split('T').first,
-                                style: TextStyles.SansReg.copyWith(fontSize: 12)
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-          
-                      // Описание комментария
-                      Text(
-                        comment['description'],
-                        style: const TextStyle(fontSize: 14),
-                      ),
-                    ],
-                  ),
+        return ListView.builder(
+          itemCount: comments.length,
+          itemBuilder: (context, index) {
+            final comment = comments[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Container(
+                padding: const EdgeInsets.all(14.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 8,
+                      offset: Offset(0, 4),
+                    )
+                  ],
                 ),
-              );
-            },
-          ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// Аватар + ник + дата
+                    Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(24),
+                          child: Image.asset(
+                            "lib/assets/png/iconsAccount/${comment["comment_author_avatar"]}",
+                            width: 36,
+                            height: 36,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '@${comment['comment_author_nickname']}',
+                              style: TextStyles.SansBold.copyWith(color: comment['nickname_color'], fontSize: 14)
+                            ),
+                            Text(
+                              comment['created_at'].toString().split('T').first,
+                              style: TextStyles.SansReg.copyWith(fontSize: 12)
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+
+                    // Описание комментария
+                    Text(
+                      comment['description'],
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         );
       },
     );

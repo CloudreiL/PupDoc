@@ -70,7 +70,6 @@ class _PostListState extends State<PostList> {
         print('Ошибка получения роли: $e');
       }
 
-
       posts.add({
         'postId': postId,
         'topic': topic,
@@ -80,7 +79,6 @@ class _PostListState extends State<PostList> {
         'userNicknameColor': userNicknameColor,
       });
     }
-
     return posts;
   }
 

@@ -71,7 +71,6 @@ class _ArticleListPage extends State<ArticleList> {
         print('Ошибка получения роли: $e');
       }
 
-
       articles.add({
         'postId': articleId,
         'topic': topic,
@@ -81,7 +80,6 @@ class _ArticleListPage extends State<ArticleList> {
         'userNicknameColor': userNicknameColor,
       });
     }
-
     return articles;
   }
 

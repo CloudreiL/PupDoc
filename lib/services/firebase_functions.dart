@@ -59,7 +59,6 @@ class FirebaseFunctions{
     }
     return null;
   }
-
   static Future<String?> getUserProfileImage() async{
     User? user = FirebaseAuth.instance.currentUser;
     final uid = FirebaseAuth.instance.currentUser?.uid;
@@ -75,8 +74,6 @@ class FirebaseFunctions{
       print('ERR: $e');
     }
   }
-
-  //Запрос ролей
   static Future<String?> getUsersRoles({
     required String userUID
 }) async{

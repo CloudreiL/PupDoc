@@ -19,10 +19,12 @@ class _SettingsPageState extends State<SettingsPage>{
           title: Text('SettingsPage'),
           backgroundColor: Colors.transparent
       ),
+        // body: Center(
+        //   child: Image.network("https://i.pinimg.com/736x/3e/78/cc/3e78ccdb167c249e5a98816d4220e91f.jpg",
+        //       height: 350),
       body: Center(
-        child: Image.network("https://i.pinimg.com/736x/3e/78/cc/3e78ccdb167c249e5a98816d4220e91f.jpg",
-            height: 350),
-      ),
-    );
+          child: Text("В будущих обновлениях :)"),
+        ),
+      );
   }
 }
